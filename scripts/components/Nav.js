@@ -11,6 +11,7 @@ const propTypes = {
   dispatch: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
   songs: PropTypes.object.isRequired,
+  apiBaseUrl: PropTypes.string.isRequired
 };
 
 class Nav extends Component {
@@ -35,8 +36,11 @@ class Nav extends Component {
 
   login(e) {
     e.preventDefault();
-    const { dispatch } = this.props;
-    dispatch(loginUser());
+    // sample user login
+    const email = 'marattig@gmail.com';
+    const password = 'password';
+    const { dispatch, apiBaseUrl } = this.props;
+    dispatch(loginUser(apiBaseUrl, email, password ));
   }
 
   logout(e) {
@@ -94,7 +98,7 @@ class Nav extends Component {
           <ul className="nav-user-popover-list">
             <li className="nav-user-popover-item">
               <a href="#" className="button orange block" onClick={this.login}>
-                Sign into SoundCloud
+                Sign in
               </a>
             </li>
           </ul>
