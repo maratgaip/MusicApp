@@ -3,8 +3,7 @@ import * as types from '../constants/ActionTypes';
 const initialState = {
   isMobile: false,
   height: null,
-  width: null,
-  apiBaseUrl: 'http://localhost:4040/'
+  width: null
 };
 
 export default function environment(state = initialState, action) {
