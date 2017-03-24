@@ -26,16 +26,33 @@ function appendLike(songId) {
   };
 }
 
+/*
 function authUser(accessToken, shouldShowStream = true) {
   return dispatch =>
     dispatch(fetchAuthedUser(accessToken, shouldShowStream));
 }
+*/
 
-function fetchAuthedUser(accessToken, shouldShowStream) {
+/*function fetchAuthedUser(accessToken, shouldShowStream) {
   return dispatch =>
     fetch(`//api.soundcloud.com/me?oauth_token=${accessToken}`)
       .then(response => response.json())
       .then(json => dispatch(receiveAuthedUserPre(accessToken, json, shouldShowStream)))
+      .catch(err => { throw err; });
+}*/
+function authUser(apiBaseUrl, email, password) {
+  var myHeaders = new Headers();
+  myHeaders.append('Content-Type', 'application/json');
+  return dispatch =>
+    fetch(apiBaseUrl + 'api/auth/login', {
+      method: 'post',
+      headers: myHeaders,
+      body: JSON.stringify({
+        email: email,
+        password: password
+      })
+    }).then(response => response.json())
+      .then(json => dispatch(receiveAuthedUserPre(json)))
       .catch(err => { throw err; });
 }
 
@@ -155,9 +172,9 @@ function initInterval(accessToken) {
   };
 }
 
-export function loginUser(shouldShowStream = true) {
+export function loginUser(apiBaseUrl, email, password) {
   return dispatch => {
-    SC.initialize({
+   /* SC.initialize({
       client_id: CLIENT_ID,
       redirect_uri: `${window.location.protocol}//${window.location.host}/api/callback`,
     });
@@ -166,7 +183,10 @@ export function loginUser(shouldShowStream = true) {
       Cookies.set(COOKIE_PATH, authObj.oauth_token);
       dispatch(authUser(authObj.oauth_token, shouldShowStream));
     })
-    .catch(err => { throw err; });
+    .catch(err => { throw err; });*/
+
+    // if nota login
+      dispatch(authUser(apiBaseUrl, email, password));
   };
 }
 
@@ -196,17 +216,16 @@ function receiveAccessToken(accessToken) {
   };
 }
 
-function receiveAuthedUserPre(accessToken, user, shouldShowStream) {
+function receiveAuthedUserPre(respond) {
   return dispatch => {
-    dispatch(receiveAccessToken(accessToken));
-    dispatch(receiveAuthedUser(user));
-    dispatch(fetchLikes(accessToken));
-    dispatch(fetchPlaylists(accessToken));
-    dispatch(fetchStream(accessToken));
-    dispatch(fetchFollowings(accessToken));
-    if (shouldShowStream) {
-      dispatch(navigateTo({ path: ['me', 'stream'] }));
-    }
+    dispatch(receiveAccessToken(respond.accessToken));
+    dispatch(receiveAuthedUser(respond.user));
+    // we don't need these, later we can impolement nota.
+   // dispatch(fetchLikes(respond.accessToken));
+   // dispatch(fetchPlaylists(respond.accessToken));
+   // dispatch(fetchStream(respond.accessToken));
+   // dispatch(fetchFollowings(respond.accessToken));
+    dispatch(navigateTo({ path: ['me', 'stream'] }));
   };
 }
 
