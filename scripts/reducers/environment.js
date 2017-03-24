@@ -4,6 +4,7 @@ const initialState = {
   isMobile: false,
   height: null,
   width: null,
+  apiBaseUrl: 'http://localhost:4040/'
 };
 
 export default function environment(state = initialState, action) {
