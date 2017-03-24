@@ -5,7 +5,7 @@ import { navigateTo } from '../actions/NavigatorActions';
 import { changePlayingSong } from '../actions/PlayerActions';
 import { fetchSongs, receiveSongs } from '../actions/PlaylistsActions';
 import * as types from '../constants/ActionTypes';
-import { CLIENT_ID } from '../constants/Config';
+import { CLIENT_ID, apiBaseUrl } from '../constants/Config';
 import { AUTHED_PLAYLIST_SUFFIX } from '../constants/PlaylistConstants';
 import { playlistSchema, songSchema, userSchema } from '../constants/Schemas';
 
@@ -40,7 +40,7 @@ function authUser(accessToken, shouldShowStream = true) {
       .then(json => dispatch(receiveAuthedUserPre(accessToken, json, shouldShowStream)))
       .catch(err => { throw err; });
 }*/
-function authUser(apiBaseUrl, email, password) {
+function authUser(email, password) {
   var myHeaders = new Headers();
   myHeaders.append('Content-Type', 'application/json');
   return dispatch =>
@@ -52,7 +52,22 @@ function authUser(apiBaseUrl, email, password) {
         password: password
       })
     }).then(response => response.json())
-      .then(json => dispatch(receiveAuthedUserPre(json)))
+      .then(json => {dispatch(receiveAuthedUserPre(json))})
+      .catch(err => { throw err; });
+}
+
+function getUser(accessToken, userId) {
+  var myHeaders = new Headers();
+  myHeaders.append('Content-Type', 'application/json');
+  return dispatch =>
+    fetch(apiBaseUrl + 'api/users/' + userId, {
+      method: 'get',
+      headers: myHeaders
+    }).then(response => response.json())
+        .then(json => {
+          dispatch(receiveAccessToken(accessToken));
+          dispatch(receiveAuthedUser(json));
+        })
       .catch(err => { throw err; });
 }
 
@@ -149,8 +164,9 @@ function fetchStream(accessToken) {
 export function initAuth() {
   return dispatch => {
     const accessToken = Cookies.get(COOKIE_PATH);
-    if (accessToken) {
-      return dispatch(authUser(accessToken, false));
+    const userId = Cookies.get('userId');
+    if (accessToken && userId) {
+      return dispatch(getUser(accessToken, userId));
     }
     return null;
   };
@@ -172,7 +188,7 @@ function initInterval(accessToken) {
   };
 }
 
-export function loginUser(apiBaseUrl, email, password) {
+export function loginUser(email, password) {
   return dispatch => {
    /* SC.initialize({
       client_id: CLIENT_ID,
@@ -186,13 +202,14 @@ export function loginUser(apiBaseUrl, email, password) {
     .catch(err => { throw err; });*/
 
     // if nota login
-      dispatch(authUser(apiBaseUrl, email, password));
+      dispatch(authUser(email, password));
   };
 }
 
 export function logoutUser() {
   return (dispatch, getState) => {
     Cookies.remove(COOKIE_PATH);
+    Cookies.remove('userId');
     const { authed, entities, navigator } = getState();
     const { path } = navigator.route;
     const playlists = authed.playlists.map((playlistId) =>
@@ -218,6 +235,8 @@ function receiveAccessToken(accessToken) {
 
 function receiveAuthedUserPre(respond) {
   return dispatch => {
+    Cookies.set(COOKIE_PATH, respond.accessToken);
+    Cookies.set('userId', respond.user._id);
     dispatch(receiveAccessToken(respond.accessToken));
     dispatch(receiveAuthedUser(respond.user));
     // we don't need these, later we can impolement nota.
