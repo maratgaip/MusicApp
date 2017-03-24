@@ -10,8 +10,7 @@ const propTypes = {
   authedPlaylists: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
-  songs: PropTypes.object.isRequired,
-  apiBaseUrl: PropTypes.string.isRequired
+  songs: PropTypes.object.isRequired
 };
 
 class Nav extends Component {
@@ -39,8 +38,8 @@ class Nav extends Component {
     // sample user login
     const email = 'marattig@gmail.com';
     const password = 'password';
-    const { dispatch, apiBaseUrl } = this.props;
-    dispatch(loginUser(apiBaseUrl, email, password ));
+    const { dispatch} = this.props;
+    dispatch(loginUser( email, password ));
   }
 
   logout(e) {
@@ -64,15 +63,20 @@ class Nav extends Component {
   renderNavUser() {
     const { authed } = this.props;
 
+    /*<img
+              alt="user avatar"
+              className="nav-authed-image"
+              src={getImageUrl(authed.user.avatar_url)}*/
+
     if (authed.user) {
       return (
         <Popover className="nav-user">
           <div className="nav-user-link">
-            <img
-              alt="user avatar"
-              className="nav-authed-image"
-              src={getImageUrl(authed.user.avatar_url)}
-            />
+            <span
+              alt="user text"
+              className="nav-authed-text">
+              { authed.user.name || authed.user.username }
+            </span>
             <i className="icon ion-chevron-down"></i>
             <i className="icon ion-chevron-up"></i>
           </div>
