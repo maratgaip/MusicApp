@@ -1,7 +1,7 @@
 {
-  "name": "sound-redux",
-  "version": "1.0.0",
-  "description": "",
+  "name": "MusicApp",
+  "version": "0.0.1",
+  "description": "Music Streaming Service APP",
   "main": "index.js",
   "scripts": {
     "build": "NODE_ENV=production webpack -p --config ./webpack.prod.config.js",
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/andrewngu/sound-redux.git"
+    "url": "https://github.com/maratgaip/MusicApp.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/andrewngu/sound-redux/issues"
+    "url": "https://github.com/maratgaip/MusicApp.git/issues"
   },
-  "homepage": "https://github.com/andrewngu/sound-redux",
+  "homepage": "https://github.com/maratgaip/MusicApp.git",
   "devDependencies": {
     "babel-core": "^6.7.2",
     "babel-eslint": "^6.0.4",
