@@ -1,0 +1,260 @@
+@import 'animations';
+
+@mixin hide-pseudo-element {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+
+$error-color: #ee4d4d;
+$warning-color: #eeb64e;
+$success-color: #54C741;
+
+.fancy-input-root {
+  display: inline-flex;
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 1rem;
+  -webkit-font-smoothing: antialiased;
+
+  * {
+    box-sizing: inherit;
+  }
+
+  .fancy-input-container {
+    position: relative;
+    display: block;
+    width: 100%;
+  }
+
+  .fancy-input-control {
+    position: absolute;
+    top: 3px;
+    right: 5px;
+    pointer-events: none;
+    display: block;
+    width: 24px;
+    height: 24px;
+    opacity: 0;
+
+    @media screen and ( min-width: 768px ) {
+      top: 8px;
+    }
+
+    .select-arrow {
+      opacity: 0.35;
+    }
+
+    &.show {
+      opacity: 1;
+    }
+  }
+
+  .fancy-input-status {
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    opacity: 0;
+    width: 50px;
+    height: 28px;
+    text-align: center;
+    pointer-events: none;
+
+    @media screen and ( min-width: 768px ) {
+      top: 7px;
+    }
+
+    .glyph {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      fill-rule: evenodd;
+    }
+
+    .error-glyph {
+      fill: $error-color;
+    }
+    .warning-glyph {
+      fill: $warning-color;
+    }
+    .success-glyph {
+      fill: none;
+
+      .checkmark {
+        transition: stroke-dashoffset ease-in 350ms;
+        stroke: $success-color;
+        stroke-dasharray: 32px 32px;
+        stroke-dashoffset: -32px;
+        stroke-width: 3px;
+        stroke-linecap: round;
+      }
+    }
+
+
+    &.status-label {
+      font-size: 11px;
+      font-weight: bold;
+      transition: opacity 600ms linear, transform 600ms ease-in-out;
+      transform: translateY( 0.5em ) scale( 0.2 );
+
+      .label-text {
+        margin: 0;
+        padding: 0;
+        line-height: 28px;
+        text-transform: uppercase;
+      }
+
+      .letter {
+        display: inline-block;
+        vertical-align: baseline;
+      }
+    }
+
+    &.saved {
+      color: $success-color;
+    }
+
+    &.show {
+      opacity: 1;
+
+      .error-glyph {
+        animation: pop-error-glyph 350ms ease-in 250ms 1 backwards;
+      }
+
+      .warning-glyph {
+        animation: pop-error-glyph 350ms ease-in 100ms 1 backwards;
+      }
+
+      .success-glyph {
+        animation: success-check 1200ms linear 0ms 1 normal forwards;
+
+        .checkmark {
+          stroke-dashoffset: 0;
+        }
+      }
+
+      &.status-label {
+        transform: translateY( 0 ) scale( 1 );
+        transition: opacity 0ms linear, transform 0ms linear;
+      }
+
+      .letter {
+        animation: status-label-letter 500ms ease-in-out 0ms 1 normal backwards;
+      }
+    }
+
+    &.persistent {
+      .success-glyph {
+        animation: success-check-persistent 1000ms linear 0ms 1 normal forwards !important;
+      }
+    }
+  }
+
+  &.format-dropdown,
+  &.type-date {
+
+    input::-ms-clear { @include hide-pseudo-element; }
+    input::-ms-reveal { @include hide-pseudo-element; }
+    input::-webkit-clear-button { @include hide-pseudo-element; }
+    input::-webkit-inner-spin-button{ @include hide-pseudo-element; }
+    input::-webkit-search-decoration { @include hide-pseudo-element; }
+    input::-webkit-search-cancel-button { @include hide-pseudo-element; }
+    input::-webkit-search-results-button { @include hide-pseudo-element; }
+    input::-webkit-search-results-decoration { @include hide-pseudo-element; }
+    input::-webkit-calendar-picker-indicator {
+      opacity: 0;
+      width: 26px;
+      height: 100%;
+    }
+
+    .fancy-input-status {
+      right: 24px;
+    }
+  }
+
+  .fancy-input-element {
+    appearance: none;
+    display: block;
+    width: 100%;
+    padding: 6px 6px 6px 8px;
+    font-size: 0.9rem;
+    border-style: solid;
+    border-width: 1px;
+    border-color: theme( 'colors', 'brand18' ) !important;
+    color: theme( 'colors', 'brand24' ) !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    background-color: transparent !important;
+    border-radius: 0;
+
+    &:focus,
+    &:active {
+      outline: none;
+      color: theme( 'colors', 'brand26' ) !important;
+      border-color: theme( 'colors', 'brand4' ) !important;
+    }
+
+    &::-moz-focus-inner {
+      border: 1px solid transparent;
+      outline: none;
+    }
+
+    @media screen and ( max-width: 767px ) {
+      border-left: none;
+      border-top: none;
+      border-right: none;
+
+      height: 36px;
+    }
+
+    @media screen and ( min-width: 768px ) {
+      border-radius: 3px;
+      height: 40px;
+    }
+
+    &.type-textarea {
+      height: 7em !important;
+    }
+    &.format-dropdown {
+      cursor: pointer;
+    }
+
+    &.validation-error {
+      border-color: $error-color !important;
+      animation: error-pulse 500ms ease-out 1;
+    }
+    &.validation-warning {
+      border-color: $warning-color !important;
+    }
+  }
+
+  .info-message {
+    display: block;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    font-size: 0.85rem;
+    line-height: 1.35;
+
+    &.show {
+      padding: 4px;
+      padding-left: 7px;
+      padding-right: 7px;
+      max-height: 9999999999rem;
+      opacity: 1;
+      animation: show-info-message 300ms ease-in-out 100ms 1 backwards;
+    }
+
+    &.error {
+      color: $error-color;
+    }
+
+    &.warning {
+      color: $warning-color;
+    }
+  }
+}

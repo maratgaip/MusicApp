@@ -1,0 +1,123 @@
+@keyframes success-check {
+  0% {
+    opacity: 0;
+    transform: scale( 0.9 );
+  }
+  30% {
+    opacity: 1;
+  }
+  50% {
+    transform: scale( 1 );
+  }
+  75% {
+    opacity: 1;
+    transform: scale( 1.1 );
+  }
+  100% {
+    opacity: 0;
+    transform: scale( 0 );
+  }
+}
+
+@keyframes success-check-persistent {
+  0% {
+    opacity: 0;
+    transform: scale( 0.9 );
+  }
+  30% {
+    opacity: 1;
+  }
+  50% {
+    transform: scale( 1 );
+  }
+  75% {
+    opacity: 1;
+    transform: scale( 1.1 );
+  }
+  100% {
+    opacity: 1;
+    transform: scale( 1 );
+  }
+}
+
+@keyframes status-label-text {
+  0% {
+    opacity: 1;
+    transform: scale( 1 );
+  }
+  25% {
+    opacity: 0.85;
+    transform: scale( 1.15 );
+  }
+  75% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale( 0 );
+  }
+}
+
+@keyframes error-pulse {
+  0% {
+    background-color: transparent;
+    transform: translateY( 0 );
+  }
+  25% {
+    transform: translateY( -6px );
+  }
+  30% {
+    background-color: rgba( #ee4d4d, 0.1 );
+  }
+  50% {
+    transform: translateY( 4px );
+  }
+  75% {
+    transform: translateY( -3px );
+  }
+  100% {
+    background-color: transparent;
+    transform: translateY( 0 );
+  }
+}
+
+@keyframes pop-error-glyph {
+  0% {
+    opacity: 0;
+    transform: translateY( 52% ) scale( 0.2 );
+  }
+  65% {
+    opacity: 1;
+    transform: translateY( -11% ) scale( 1.1 );
+  }
+  100% {
+    transform: translateY( 0 ) scale( 1 );
+  }
+}
+
+@keyframes show-info-message {
+  0% {
+    opacity: 0;
+    transform: translateY( -0.75em );
+  }
+  100% {
+    opacity: 1;
+    transform: translateY( 0 );
+  }
+}
+
+@keyframes status-label-letter {
+  0% {
+    opacity: 0;
+    transform: translateY( 1.25em );
+  }
+  50% {
+    transform: translateY( -0.25em );
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY( 0 );
+  }
+}
