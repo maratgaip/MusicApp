@@ -74,7 +74,7 @@ class Nav extends Component {
             <span
               alt="user text"
               className="nav-authed-text">
-              { authed.user.name || authed.user.username }
+              { authed.user.name || authed.user.username || authed.user.email }
             </span>
             <i className="icon ion-chevron-down"></i>
             <i className="icon ion-chevron-up"></i>
