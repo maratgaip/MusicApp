@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { loginUser, logoutUser } from '../actions/AuthedActions';
+import { changeModal } from '../actions/ModalActions';
 import Link from '../components/Link';
 import NavSearch from '../components/NavSearch';
 import Popover from '../components/Popover';
+import Modal from '../components/ModalLogin.js'
 import { getImageUrl } from '../utils/SongUtils';
 
 const propTypes = {
@@ -35,11 +37,8 @@ class Nav extends Component {
 
   login(e) {
     e.preventDefault();
-    // sample user login
-    const email = 'marattig@gmail.com';
-    const password = 'password';
     const { dispatch} = this.props;
-    dispatch(loginUser( email, password ));
+    dispatch(changeModal('login'));
   }
 
   logout(e) {
