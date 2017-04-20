@@ -6,7 +6,7 @@ const initialState = {
   likes: {},
   newStreamSongs: [],
   playlists: [],
-  user: null
+  user: null,
 };
 
 export default function authed(state = initialState, action) {

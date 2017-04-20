@@ -7,7 +7,7 @@ import {
   ErrorGlyph,
   WarningGlyph,
   SelectArrow,
-  StatusLabel
+  StatusLabel,
 } from './symbols';
 
 import eventList from './utils/event-list';
@@ -19,19 +19,19 @@ const VALIDATION_NEUTRAL = null;
 
 class FancyInput extends Component {
 
-  constructor( props ) {
-    super( props );
+  constructor(props) {
+    super(props);
     this.state = { currentValue: null };
 
-    this.updateCurrentValue = e => this.setState( { currentValue: e.target.value } );
+    this.updateCurrentValue = e => this.setState({ currentValue: e.target.value });
 
-    this.eventHandlers = eventList.reduce( ( prev, curr ) => {
-      const eventResponder = props[ curr ];
-      if( typeof eventResponder === 'function' ) {
-        prev[ curr ] = eventResponder;
+    this.eventHandlers = eventList.reduce((prev, curr) => {
+      const eventResponder = props[curr];
+      if (typeof eventResponder === 'function') {
+        prev[curr] = eventResponder;
       }
       return prev;
-    }, {} );
+    }, {});
   }
 
   static get defaultProps() {
@@ -45,33 +45,33 @@ class FancyInput extends Component {
       validationStatus: null,
       validationMessage: null,
       saveStatus: null,
-      modificationRequiredForValidation: true
+      modificationRequiredForValidation: true,
     };
   }
 
   static get propTypes() {
     return {
       type: PropTypes.string,
-      name: PropTypes.oneOfType( [
+      name: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.array,
-        PropTypes.object
-      ] ),
-      value: PropTypes.oneOfType( [
+        PropTypes.object,
+      ]),
+      value: PropTypes.oneOfType([
         PropTypes.string,
-        PropTypes.number
-      ] ),
+        PropTypes.number,
+      ]),
       maxLength: PropTypes.number,
       placeholder: PropTypes.string,
       disabled: PropTypes.bool,
-      validationStatus: PropTypes.oneOf( [
+      validationStatus: PropTypes.oneOf([
         VALIDATION_SUCCESS,
         VALIDATION_WARNING,
         VALIDATION_ERROR,
-        null
-      ] ),
+        null,
+      ]),
       saveStatus: PropTypes.bool,
-      modificationRequiredForValidation: PropTypes.bool
+      modificationRequiredForValidation: PropTypes.bool,
     };
   }
 
@@ -82,14 +82,14 @@ class FancyInput extends Component {
   getValue() {
     const { currentValue } = this.state;
 
-    if( typeof currentValue === 'string' ) {
+    if (typeof currentValue === 'string') {
       return currentValue;
     }
     return this.props.value;
   }
 
   reset() {
-    this.setState( { currentValue: null } );
+    this.setState({ currentValue: null });
   }
 
   render() {
@@ -110,7 +110,7 @@ class FancyInput extends Component {
       required,
       spellCheck,
       tabIndex,
-      modificationRequiredForValidation
+      modificationRequiredForValidation,
       } = this.props;
 
     const inputAttributes = {
@@ -125,67 +125,70 @@ class FancyInput extends Component {
       readOnly,
       required,
       spellCheck,
-      tabIndex
+      tabIndex,
     };
 
     let InputElement = 'input';
     let format = 'text';
 
-    if( type === 'textarea' ) {
+    if (type === 'textarea') {
       InputElement = 'textarea';
-    } else if( type === 'select' ) {
+    } else if (type === 'select') {
       format = 'dropdown';
       InputElement = 'select';
     }
 
     let children = null;
-    if( type === 'select' ) {
+    if (type === 'select') {
       children = this.props.children;
     }
 
-    const valueModified = ( typeof this.state.currentValue === 'string' );
+    const valueModified = (typeof this.state.currentValue === 'string');
 
-    const error = ( ( valueModified || !modificationRequiredForValidation ) && ( validationStatus === VALIDATION_ERROR ) );
-    const warning = ( ( valueModified || !modificationRequiredForValidation ) && ( validationStatus === VALIDATION_WARNING ) );
-    const success = ( validationStatus === VALIDATION_SUCCESS );
+    const error = ((valueModified || !modificationRequiredForValidation) && (validationStatus === VALIDATION_ERROR));
+    const warning = ((valueModified || !modificationRequiredForValidation) && (validationStatus === VALIDATION_WARNING));
+    const success = (validationStatus === VALIDATION_SUCCESS);
 
     return (
-      <div className={ classNames(
+      <div className={classNames(
         'fancy-input-root',
         `type-${type}`,
         `format-${format}`,
-        name ) }>
+        name)}>
         <div className="fancy-input-container">
-          <SelectArrow show={ format === 'dropdown' || type === 'date' }/>
-          <ErrorGlyph show={ error }/>
-          <WarningGlyph show={ warning }/>
-          <SuccessGlyph show={ success } persistent={ !saveStatus }/>
+          <SelectArrow show={format === 'dropdown' || type === 'date'} />
+          <ErrorGlyph show={error} />
+          <WarningGlyph show={warning} />
+          <SuccessGlyph show={success} persistent={!saveStatus} />
           <StatusLabel
             name="saved"
-            show={ saveStatus }
-            delay={ success ? 800 : 0 }>Saved</StatusLabel>
+            show={saveStatus}
+            delay={success ? 800 : 0}
+          >Saved</StatusLabel>
           <InputElement
-            className={ classNames(
+            className={classNames(
               'fancy-input-element',
               `format-${format}`,
               `type-${type}`,
               {
                 'validation-success': success,
                 'validation-error': error,
-                'validation-warning': warning
-              } ) }
-            value={ this.getValue() }
-            onChange={ this.updateCurrentValue }
+                'validation-warning': warning,
+              })}
+            value={this.getValue()}
+            onChange={this.updateCurrentValue}
             data-skip-dirty
-            { ...inputAttributes }
-            { ...this.eventHandlers }
-            ref="inputElement">{ children }</InputElement>
+            {...inputAttributes}
+            {...this.eventHandlers}
+            ref="inputElement"
+          >{children}</InputElement>
           <p
-            className={ classNames( 'info-message', {
-                'error': error,
-                'warning': warning,
-                'show': error || warning
-            } ) }>{ validationMessage }</p>
+            className={classNames('info-message', {
+              error,
+              warning,
+              'show': error || warning,
+            })}
+          >{validationMessage}</p>
         </div>
       </div>
     );
@@ -196,7 +199,7 @@ FancyInput.ValidationResults = {
   VALIDATION_SUCCESS,
   VALIDATION_WARNING,
   VALIDATION_ERROR,
-  VALIDATION_NEUTRAL
+  VALIDATION_NEUTRAL,
 };
 
 export default FancyInput;

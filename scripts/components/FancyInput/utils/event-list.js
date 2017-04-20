@@ -21,7 +21,7 @@ const eventList = [
   'onTouchStart',
   'onTouchMove',
   'onTouchEnd',
-  'onTouchCancel'
+  'onTouchCancel',
 ];
 
 export default eventList;

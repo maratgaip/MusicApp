@@ -4,7 +4,7 @@ import { changeModal } from '../actions/ModalActions';
 import Link from '../components/Link';
 import NavSearch from '../components/NavSearch';
 import Popover from '../components/Popover';
-import Modal from '../components/ModalLogin.js'
+import Modal from '../components/ModalLogin.js';
 import { getImageUrl } from '../utils/SongUtils';
 
 const propTypes = {
@@ -12,7 +12,7 @@ const propTypes = {
   authedPlaylists: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
-  songs: PropTypes.object.isRequired
+  songs: PropTypes.object.isRequired,
 };
 
 class Nav extends Component {
@@ -37,7 +37,7 @@ class Nav extends Component {
 
   login(e) {
     e.preventDefault();
-    const { dispatch} = this.props;
+    const { dispatch } = this.props;
     dispatch(changeModal('login'));
   }
 
@@ -62,7 +62,7 @@ class Nav extends Component {
   renderNavUser() {
     const { authed } = this.props;
 
-    /*<img
+    /* <img
               alt="user avatar"
               className="nav-authed-image"
               src={getImageUrl(authed.user.avatar_url)}*/
@@ -73,8 +73,9 @@ class Nav extends Component {
           <div className="nav-user-link">
             <span
               alt="user text"
-              className="nav-authed-text">
-              { authed.user.name || authed.user.username || authed.user.email }
+              className="nav-authed-text"
+            >
+              {authed.user.name || authed.user.username || authed.user.email}
             </span>
             <i className="icon ion-chevron-down"></i>
             <i className="icon ion-chevron-up"></i>

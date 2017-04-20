@@ -33,14 +33,14 @@ function authUser(accessToken, shouldShowStream = true) {
 }
 */
 
-/*function fetchAuthedUser(accessToken, shouldShowStream) {
+/* function fetchAuthedUser(accessToken, shouldShowStream) {
   return dispatch =>
     fetch(`//api.soundcloud.com/me?oauth_token=${accessToken}`)
       .then(response => response.json())
       .then(json => dispatch(receiveAuthedUserPre(accessToken, json, shouldShowStream)))
       .catch(err => { throw err; });
 }*/
-/*function authUser(email, password) {
+/* function authUser(email, password) {
   var myHeaders = new Headers();
   myHeaders.append('Content-Type', 'application/json');
   return dispatch =>
@@ -62,7 +62,7 @@ function getUser(accessToken, userId) {
   return dispatch =>
     fetch(apiBaseUrl + 'api/users/' + userId, {
       method: 'get',
-      headers: myHeaders
+      headers: myHeaders,
     }).then(response => response.json())
         .then(json => {
           dispatch(receiveAccessToken(accessToken));
@@ -188,7 +188,7 @@ function initInterval(accessToken) {
   };
 }
 
-/*export function loginUser(email, password) {
+/* export function loginUser(email, password) {
   return dispatch => {
    /!* SC.initialize({
       client_id: CLIENT_ID,

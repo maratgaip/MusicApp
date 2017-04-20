@@ -84,7 +84,7 @@ function mapStateToProps(state) {
     height,
     isMobile,
     path,
-    width
+    width,
   };
 }
 

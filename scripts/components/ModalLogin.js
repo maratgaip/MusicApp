@@ -4,26 +4,26 @@ import { connect } from 'react-redux';
 import { receiveAuthedUserPre } from '../actions/AuthedActions';
 
 class ModalLogin extends Component {
-  constructor( props ) {
+  constructor(props) {
     super(props);
     this.state = {
       step: '',
       email: '',
       password: '',
-      error: ''
+      error: '',
     };
     this.step = step => {
       return () => {
-        this.setState( { step: step } );
-      }
+        this.setState({ step });
+      };
     };
-    this.onChangeUsername = ( e ) => {
-      this.setState( { email: e.target.value } );
-      this.setState( { error: '' } );
+    this.onChangeUsername = (e) => {
+      this.setState({ email: e.target.value });
+      this.setState({ error: '' });
     };
-    this.onChangePassword = ( e ) => {
-      this.setState( { password: e.target.value } );
-      this.setState( { error: '' } );
+    this.onChangePassword = (e) => {
+      this.setState({ password: e.target.value });
+      this.setState({ error: '' });
     };
     this.login = () => {
       const { email, password } = this.state;
@@ -35,23 +35,23 @@ class ModalLogin extends Component {
         method: 'post',
         headers: loginHeaders,
         body: JSON.stringify({
-          email: email,
-          password: password
-        })
+          email,
+          password,
+        }),
       })
-      .then( response => {
+      .then(response => {
         if (response.ok) {
           this.props.closeModal();
-          response.json().then( data => {
+          response.json().then(data => {
             dispatch(receiveAuthedUserPre(data));
-          })
+          });
         } else {
-          response.json().then( data => {
-            this.setState({ error: data.message })
-          })
+          response.json().then(data => {
+            this.setState({ error: data.message });
+          });
         }
       })
-      .catch(err => { console.log("login failed", err) });
+      .catch(err => { console.log('login failed', err); });
     };
     this.signUp = () => {
       const { email, password } = this.state;
@@ -63,27 +63,27 @@ class ModalLogin extends Component {
         method: 'post',
         headers: signUpHeaders,
         body: JSON.stringify({
-          email: email,
-          password: password
-        })
+          email,
+          password,
+        }),
       })
-        .then( response => {
+        .then(response => {
           if (response.ok) {
             this.props.closeModal();
-            response.json().then( data => {
+            response.json().then(data => {
               dispatch(receiveAuthedUserPre(data));
-            })
+            });
           } else {
-            response.json().then( data => {
-              this.setState({ error: data.message })
-            })
+            response.json().then(data => {
+              this.setState({ error: data.message });
+            });
           }
         })
-        .catch(err => { console.log("login failed", err) });
+        .catch(err => { console.log('login failed', err); });
     };
-    this.handleLoginKeypress = ( e ) => {
+    this.handleLoginKeypress = (e) => {
       var isEnterKeypress = e.key === 'Enter';
-      if( !isEnterKeypress ) {
+      if (!isEnterKeypress) {
         return;
       }
       this.login();
@@ -98,64 +98,64 @@ class ModalLogin extends Component {
         <div className="btn vkontakte">Log in With VKontakte</div>
         <div className="or">or</div>
         <input
-          value={ this.state.email }
-          onChange={ this.onChangeUsername }
+          value={this.state.email}
+          onChange={this.onChangeUsername}
           className="generic-input"
           type="email"
           maxLength="75"
           placeholder="Email or Username"
-          onKeyDown={ this.handleLoginKeypress }
-          />
+          onKeyDown={this.handleLoginKeypress}
+        />
         <input
-          value={ this.state.password }
-          onChange={ this.onChangePassword }
+          value={this.state.password}
+          onChange={this.onChangePassword}
           className="generic-input"
           type="password"
           maxLength="25"
-          onKeyDown={ this.handleLoginKeypress }
+          onKeyDown={this.handleLoginKeypress}
           placeholder="Password"
-          />
-        <div className={ classNames( 'login-error', { show: this.state.error.length } ) }>
-          { this.state.error }
+        />
+        <div className={classNames('login-error', { show: this.state.error.length })}>
+          {this.state.error}
         </div>
-        <div className="btn email" onClick={ this.login }>Login</div>
+        <div className="btn email" onClick={this.login}>Login</div>
         <div className="modal-footer">
-          <div className="step-btn" onClick={ this.step('signUp') }>Sign up</div>
+          <div className="step-btn" onClick={this.step('signUp')}>Sign up</div>
         </div>
 
       </div>
     );
     if (this.state.step === 'signUp') {
-       modalBody = (
+      modalBody = (
         <div className="modal-body">
           <div className="btn facebook">Sign up With Facebook</div>
           <div className="btn twitter">Sign up With Twitter</div>
           <div className="btn vkontakte">Sign up With VKontakte</div>
           <div className="or">or</div>
           <input
-            value={ this.state.email }
-            onChange={ this.onChangeUsername }
+            value={this.state.email}
+            onChange={this.onChangeUsername}
             className="generic-input"
             type="email"
             maxLength="75"
             placeholder="Email or Username"
-            onKeyDown={ this.handleLoginKeypress }
-            />
+            onKeyDown={this.handleLoginKeypress}
+          />
           <input
-            value={ this.state.password }
-            onChange={ this.onChangePassword }
+            value={this.state.password}
+            onChange={this.onChangePassword}
             className="generic-input"
             type="password"
             maxLength="25"
-            onKeyDown={ this.handleLoginKeypress }
+            onKeyDown={this.handleLoginKeypress}
             placeholder="Password"
-            />
-          <div className={ classNames( 'login-error', { show: this.state.error.length } ) }>
-            { this.state.error }
+          />
+          <div className={classNames('login-error', { show: this.state.error.length })}>
+            {this.state.error}
           </div>
-          <div className="btn email" onClick={ this.signUp }>Sign Up</div>
+          <div className="btn email" onClick={this.signUp}>Sign Up</div>
           <div className="modal-footer">
-            <div className="step-btn" onClick={ this.step('login') }>Login</div>
+            <div className="step-btn" onClick={this.step('login')}>Login</div>
           </div>
         </div>
       );
@@ -163,7 +163,7 @@ class ModalLogin extends Component {
     return (
       <div className="modal-content" onClick={onClickFunc}>
         <div className="modal-header">Sign in</div>
-        { modalBody }
+        {modalBody}
 
       </div>
     );
@@ -173,7 +173,7 @@ function mapStateToProps(state) {
   const { apiUrl } = state.environment;
 
   return {
-    apiUrl
+    apiUrl,
   };
 }
 

@@ -28,7 +28,7 @@ function mapStateToProps(state) {
     authedPlaylists: playlists,
     isMobile,
     navigator,
-    songs
+    songs,
   };
 }
 
