@@ -34,3 +34,11 @@
     display: block;
   }
 }
+.step-btn {
+  padding-top: 10px;
+  font-size: 12px;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
