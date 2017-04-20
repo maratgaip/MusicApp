@@ -22,7 +22,7 @@ class Modal extends Component {
     const { modal } = this.props;
     switch (modal) {
       case 'login':
-        return <ModalLogin />;
+        return <ModalLogin {...this.props} closeModal={ this.closeModal } />;
       default:
         return <div></div>;
     }
