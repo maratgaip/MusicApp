@@ -40,7 +40,7 @@ function authUser(accessToken, shouldShowStream = true) {
       .then(json => dispatch(receiveAuthedUserPre(accessToken, json, shouldShowStream)))
       .catch(err => { throw err; });
 }*/
-function authUser(email, password) {
+/*function authUser(email, password) {
   var myHeaders = new Headers();
   myHeaders.append('Content-Type', 'application/json');
   return dispatch =>
@@ -54,7 +54,7 @@ function authUser(email, password) {
     }).then(response => response.json())
       .then(json => {dispatch(receiveAuthedUserPre(json))})
       .catch(err => { throw err; });
-}
+}*/
 
 function getUser(accessToken, userId) {
   var myHeaders = new Headers();
@@ -188,9 +188,9 @@ function initInterval(accessToken) {
   };
 }
 
-export function loginUser(email, password) {
+/*export function loginUser(email, password) {
   return dispatch => {
-   /* SC.initialize({
+   /!* SC.initialize({
       client_id: CLIENT_ID,
       redirect_uri: `${window.location.protocol}//${window.location.host}/api/callback`,
     });
@@ -199,12 +199,12 @@ export function loginUser(email, password) {
       Cookies.set(COOKIE_PATH, authObj.oauth_token);
       dispatch(authUser(authObj.oauth_token, shouldShowStream));
     })
-    .catch(err => { throw err; });*/
+    .catch(err => { throw err; });*!/
 
     // if nota login
       dispatch(authUser(email, password));
   };
-}
+}*/
 
 export function logoutUser() {
   return (dispatch, getState) => {
@@ -233,7 +233,7 @@ function receiveAccessToken(accessToken) {
   };
 }
 
-function receiveAuthedUserPre(respond) {
+export function receiveAuthedUserPre(respond) {
   return dispatch => {
     Cookies.set(COOKIE_PATH, respond.accessToken);
     Cookies.set('userId', respond.user._id);
