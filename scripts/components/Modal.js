@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { changeModal } from '../actions/ModalActions';
-import ModalLogin from '../components/ModalLogin';
+import ModalLogin from '../components/account/ModalLogin';
+
 
 const propTypes = {
   dispatch: PropTypes.func.isRequired,
