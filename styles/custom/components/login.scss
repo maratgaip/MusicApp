@@ -1,0 +1,36 @@
+.btn {
+  margin: 15px 0;
+}
+.sign-in {
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.or {
+  text-align: center;
+  margin: 20px 0;
+  position: relative;
+  &::after, &::before {
+    border-top: solid 1px $color1;
+    content: "";
+    display: block;
+    position: absolute;
+    top: 10px;
+    width: calc(50% - 20px);
+  }
+  &::before {
+   right: 0;
+  }
+}
+.login-error {
+  display: none;
+  color: red;
+  font-size: 12px;
+  &.show {
+    display: block;
+  }
+}
