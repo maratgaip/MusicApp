@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { receiveAuthedUserPre } from '../actions/AuthedActions';
@@ -12,10 +12,8 @@ class ModalLogin extends Component {
       password: '',
       error: '',
     };
-    this.step = step => {
-      return () => {
-        this.setState({ step });
-      };
+    this.step = step => () => {
+      this.setState({ step });
     };
     this.onChangeUsername = (e) => {
       this.setState({ email: e.target.value });
@@ -28,9 +26,10 @@ class ModalLogin extends Component {
     this.login = () => {
       const { email, password } = this.state;
       const { dispatch, apiUrl } = this.props;
-      let loginHeaders = new Headers();
+      const loginHeaders = new Headers();
       loginHeaders.append('Content-Type', 'application/json');
-      const url = apiUrl + 'auth/login';
+      const url = `${apiUrl} + auth/login`;
+
       fetch(url, {
         method: 'post',
         headers: loginHeaders,
@@ -50,15 +49,14 @@ class ModalLogin extends Component {
             this.setState({ error: data.message });
           });
         }
-      })
-      .catch(err => { console.log('login failed', err); });
+      });
     };
     this.signUp = () => {
       const { email, password } = this.state;
       const { dispatch, apiUrl } = this.props;
-      let signUpHeaders = new Headers();
+      const signUpHeaders = new Headers();
       signUpHeaders.append('Content-Type', 'application/json');
-      const url = apiUrl + 'users/';
+      const url = `${apiUrl} + users`;
       fetch(url, {
         method: 'post',
         headers: signUpHeaders,
@@ -78,11 +76,10 @@ class ModalLogin extends Component {
               this.setState({ error: data.message });
             });
           }
-        })
-        .catch(err => { console.log('login failed', err); });
+        });
     };
     this.handleLoginKeypress = (e) => {
-      var isEnterKeypress = e.key === 'Enter';
+      const isEnterKeypress = e.key === 'Enter';
       if (!isEnterKeypress) {
         return;
       }
@@ -177,5 +174,9 @@ function mapStateToProps(state) {
   };
 }
 
-
+ModalLogin.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  apiUrl: PropTypes.string.isRequired,
+  closeModal: PropTypes.func.isRequired,
+};
 export default connect(mapStateToProps)(ModalLogin);

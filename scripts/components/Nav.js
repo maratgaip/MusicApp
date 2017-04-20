@@ -1,10 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { loginUser, logoutUser } from '../actions/AuthedActions';
+import { logoutUser } from '../actions/AuthedActions';
 import { changeModal } from '../actions/ModalActions';
 import Link from '../components/Link';
 import NavSearch from '../components/NavSearch';
 import Popover from '../components/Popover';
-import Modal from '../components/ModalLogin.js';
 import { getImageUrl } from '../utils/SongUtils';
 
 const propTypes = {
