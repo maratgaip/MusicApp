@@ -15,6 +15,10 @@
 .nav-nav-item {
     display: table-cell;
     vertical-align: middle;
+
+    .nav-user {
+        padding: 0 15px;
+    }
 }
 
 .nav-nav-item-link {

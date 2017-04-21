@@ -59,7 +59,7 @@ class Signup extends Component {
 
     return (
       <div>
-        <div className="modal-header">Sign in</div>
+        <div className="modal-header">Login</div>
         <div className="modal-body">
           <div className="btn facebook">Sign up With Facebook</div>
           <div className="btn twitter">Sign up With Twitter</div>

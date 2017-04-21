@@ -21,7 +21,6 @@ class ModalLogin extends Component {
     }
     return (
       <div className="modal-content" onClick={onClickFunc}>
-        <div className="modal-header">Sign in</div>
         { loginStep }
       </div>
     );
