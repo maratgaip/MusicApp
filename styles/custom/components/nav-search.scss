@@ -13,9 +13,13 @@
 }
 
 input[type="text"].nav-search-input {
-    width: 290px;
+    width: 180px;
     padding: 6px 10px 6px 30px;
     color: #e3e3e3;
     font-weight: 300;
     background-color: transparent;
+
+    &:focus {
+        width: 300px;
+    }
 }
