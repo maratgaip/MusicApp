@@ -200,7 +200,7 @@ class Nav extends Component {
               <Link
                 className="nav-nav-item-link active"
                 dispatch={dispatch}
-                route={{ path: ['songs'] }}
+                route={{ path: ['explore'] }}
               >
                 Nota
               </Link>
