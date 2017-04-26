@@ -12,6 +12,9 @@
 .col-1-5 {
     width: 20%;
 }
+.col-1-6 {
+    width: 16.6666666667%;
+}
 
 .col-3-10 {
     width: 30%;
@@ -27,9 +30,41 @@
 }
 
 [class*='col-'] {
-    padding-right: 20px;
+    padding: 10px;
 }
 
-[class*='col-']:last-of-type {
-    padding-right: 0;
+.song-card {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  width: 100%;
+}
+
+.songs-row {
+  width: 100%;
+  overflow: hidden;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.item {
+  float: left;
+  padding: 0.625rem;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 16.6666666667%;
+  height: 200px;
+
+  @media screen and (max-width: 1200px) {
+    width: 33.333%;
+  }
+  @media screen and (max-width: 767px) {
+    width: 50%;
+  }
 }
