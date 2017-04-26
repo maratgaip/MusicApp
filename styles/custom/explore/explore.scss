@@ -1,0 +1,30 @@
+.explore {
+  margin: 20px auto;
+  .content {
+    margin: 20px 0;
+  }
+  .title {
+    font-weight: 600;
+    font-size: 18px;
+    color: $txtMain;
+    text-align: center;
+    display: block;
+    &.animated {
+      cursor: pointer;
+      transition-duration: .15s;
+      transition-property: color;
+
+      &:hover {
+        color: $txtHover;
+        text-decoration: none;
+      }
+    }
+    .icon {
+      padding-left: 5px;
+    }
+  }
+  .description {
+    color: $txtSub;
+    text-align: center;
+  }
+}
