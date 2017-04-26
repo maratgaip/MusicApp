@@ -11,6 +11,8 @@ import ModalContainer from '../containers/ModalContainer';
 import PlayerContainer from '../containers/PlayerContainer';
 import SongContainer from '../containers/SongContainer';
 import SongsContainer from '../containers/SongsContainer';
+import ExploreContainer from './explore/ExploreContainer';
+import ChannelContainer from './channel/ChannelContainer';
 import UserContainer from '../containers/UserContainer';
 
 const propTypes = {
@@ -43,6 +45,10 @@ class App extends Component {
         }
       case 'users':
         return <UserContainer />;
+      case 'explore':
+        return <ExploreContainer />;
+      case 'channels':
+        return <ChannelContainer />;
       case 'me':
         return <MeContainer />;
       default:
