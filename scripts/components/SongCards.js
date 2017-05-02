@@ -116,10 +116,10 @@ class SongCards extends Component {
   }
 
   renderSongs(start, end) {
-    const chunk = 5;
+    const chunk = 6;
     const { authed, dispatch, playlist, playlists, playingSongId, songs, users } = this.props;
     const items = playlist in playlists ? playlists[playlist].items : [];
-    const result = [];
+    let result = [];
 
     for (let i = start; i < end; i += chunk) {
       const songCards = items.slice(i, i + chunk).map((songId, j) => {
@@ -130,7 +130,7 @@ class SongCards extends Component {
         const playSongFunc = this.playSong.bind(this, index);
 
         return (
-          <div className="col-1-5 clearfix" key={`${index}-${song.id}`}>
+          <div className="col-1-5" key={`${index}-${song.id}`}>
             <SongCard
               authed={authed}
               dispatch={dispatch}
@@ -149,17 +149,10 @@ class SongCards extends Component {
           songCards.push(<div className="col-1-5" key={`song-placeholder-${(i + j)}`} />);
         }
       }
-
-      result.push(
-        <div className="songs-row grid" key={`songs-row-${i}`}>
-          {songCards}
-        </div>
-      );
+      result = result.concat(songCards);
     }
-
     return result;
   }
-
   render() {
     const { playlist, playlists } = this.props;
     const { end, paddingBottom, paddingTop, start } = this.state;
@@ -168,7 +161,9 @@ class SongCards extends Component {
     return (
       <div className="content">
         <div className="padder" style={{ height: paddingTop }} />
-        {this.renderSongs(start, end)}
+          <div className="songs-row grid">
+            {this.renderSongs(start, end)}
+          </div>
         <div className="padder" style={{ height: paddingBottom }} />
         {isFetching ? <Spinner /> : null}
       </div>
